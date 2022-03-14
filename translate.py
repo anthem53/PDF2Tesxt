@@ -34,12 +34,12 @@ def readTarget():
 def init_translate():
     # 옵션 생성
     options = webdriver.ChromeOptions()
-
-    path = "C://Users//LeeJihyeon//Documents//python//socketTEST//PDF2TEXT//chromedriver.exe"  
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    path = "C://Users//LeeJihyeon//Documents//python//PDF2TEXT//chromedriver.exe"  
     global driver
     
     driver = webdriver.Chrome(path, options=options)
-    #driver.set_window_position(0,-2000)
+    driver.set_window_position(0,-2000)
     
     openURL("https://papago.naver.com/")
     driver.implicitly_wait(10) 
