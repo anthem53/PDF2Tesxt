@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import pyperclip
+import chromedriver_autoinstaller as AutoChrome
+import os
 # https://answer-id.com/ko/52791220 셀레니움 창 위치 관련 링크
 driver = None
 
@@ -35,8 +37,13 @@ def init_translate():
     # 옵션 생성
     options = webdriver.ChromeOptions()
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
-    path = "C://Users//LeeJihyeon//Documents//python//PDF2TEXT//chromedriver.exe"  
+    
+    path = os.path.dirname(os.path.realpath(__file__))+"//chromedriver.exe"  
     global driver
+
+    chrome_ver      = AutoChrome.get_chrome_version()
+    print(chrome_ver)
+    print("os.path.dirname(os.path.realpath(__file__))",os.path.dirname(os.path.realpath(__file__)))
     
     driver = webdriver.Chrome(path, options=options)
     driver.set_window_position(0,-2000)
