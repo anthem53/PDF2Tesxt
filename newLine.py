@@ -13,6 +13,9 @@ def initReplaceDict():
     replaceDict['StyleGAN'] = '"StyleGAN"'
     replaceDict[''' ""StyleGAN"2" '''] = '"StyleGAN2"'
     replaceDict['AdaIN'] = '"[AdaIN]"'
+    replaceDict['SIRENs'] = '"SIRENs"'
+    replaceDict['SIREN'] = '"SIREN"'
+    replaceDict['""SIREN"s"'] = '"SIRENs"'
     replaceDict[''] = ''
 
 def replaceword(s):

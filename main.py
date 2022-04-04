@@ -17,6 +17,7 @@ UI_DEBUG = False
 font_size = 23
 currentTranslateWindow = None
 
+
 def on_closing():
     if messagebox.askokcancel("Quit", "Do you want to quit?"):
         if UI_DEBUG == False:
@@ -55,7 +56,6 @@ def translate (UI_LIST):
     if currentTranslateWindow != None :
         e = None
         on_closeing_window_translate(e)
-        #on_closeing_window(currentTranslateWindow)
          
     targetText = getUIWithName(UI_LIST,"targetText")
     
@@ -79,7 +79,6 @@ def translate (UI_LIST):
     targetText.delete(1.0,"end")
     targetText.insert(1.0,translateResult)
     targetText.config(state='disabled')
-    #targetText.bind("<Escape>",lambda x : on_closeing_window(currentTranslateWindow))
     targetText.bind("<Escape>",on_closeing_window_translate)
 
     currentTranslateWindow.config(menu=tempMenubar)
@@ -122,6 +121,7 @@ def addMenu(root,UI_LIST):
 
     fontmenu = tkinter.Menu(menubar,tearoff=0)
     menubar.add_cascade(label="font size", menu=fontmenu)
+    fontmenu.add_command(label="9",command= lambda: setFontSize(UI_LIST,9))
     fontmenu.add_command(label="11",command= lambda: setFontSize(UI_LIST,11))
     fontmenu.add_command(label="12",command= lambda: setFontSize(UI_LIST,12))
     fontmenu.add_command(label="14",command= lambda: setFontSize(UI_LIST,14))
@@ -142,10 +142,15 @@ def addTargetText(root):
     TargetTextTitle = tkinter.Label(targetTextFrame , text= "Your Text")
     TargetTextTitle.pack(side="top")
 
+    
     targetText= scrolledtext.ScrolledText(targetTextFrame)
-    targetText.config(font=("맑은 고딕", font_size))
+    targetText.config(font=("맑은 고딕", font_size),undo=True)
+    
     targetText.pack(expand=1,side="bottom",fill="both")
-    return [(targetText,"targetText")]
+    returnValue = [(targetText,"targetText")]
+    targetText.bind("<Control-r>",lambda x: removeNewline(returnValue))
+    targetText.bind("<Control-t>",lambda x: translate(returnValue))
+    return returnValue
 
 def addTranslatedText(root):
     targetTextFrame2 = tkinter.Frame(root)
