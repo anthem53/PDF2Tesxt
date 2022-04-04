@@ -1,7 +1,24 @@
 startSymbolList = ['•','–','']
 endSymbolList = ['.','!','?']
 properNounList = ["StyleGAN2"]
+replaceDict = {}
 
+testSentence  = '''
+Though these techniques can potentially represent complicated and highresolution geometry, they have so far been limited to simple shapes with low\n
+geometric complexity, resulting in oversmoothed renderings. We show that an alternate strategy of optimizing networks to encode 5D radiance fields (3D volumes with 2D view-dependent appearance) can represent higher-resolution geometry\n
+and appearance to render photorealistic novel views of complex scenes.
+'''
+def initReplaceDict():
+    replaceDict['StyleGAN2'] = '"StyleGAN2"'
+    replaceDict['StyleGAN'] = '"StyleGAN"'
+    replaceDict[''' ""StyleGAN"2" '''] = '"StyleGAN2"'
+    replaceDict['AdaIN'] = '"[AdaIN]"'
+    replaceDict[''] = ''
+
+def replaceword(s):
+    for key  in replaceDict:
+        s = s.replace(key,replaceDict[key])
+    return s
 
 def isStart(s):
     if s[0] in startSymbolList:
@@ -21,6 +38,7 @@ def isProperNoun(s):
         return False
 
 def execute(s):
+    initReplaceDict()
     list = s.split("\n")
     can_Entered = False
     isFirst = True
@@ -28,41 +46,45 @@ def execute(s):
     result = []
 
     for s_iter in list:
-        
-        if isStart(s_iter) == True:
-            if isFirst == True :
-                result.append(s_iter)
-            else :
+        if s_iter != '':
+            if isStart(s_iter) == True:
+                if isFirst == True :
+                    result.append(s_iter)
+                else :
+                    result.append("\n" + s_iter)
+                    can_Entered = False
+            elif can_Entered == True :
                 result.append("\n" + s_iter)
                 can_Entered = False
-        elif can_Entered == True :
-            result.append("\n" + s_iter)
-            can_Entered = False
-        else:
-            if isSameWord == False:
-                result.append(s_iter)
             else:
-                result[-1] = result[-1][0:len(result[-1]) - 1] + s_iter
+                if isSameWord == False:
+                    result.append(s_iter)
+                else:
+                    result[-1] = result[-1][0:len(result[-1]) - 1] + s_iter
+                    isSameWord = False
+                    pass
+            if s_iter[-1] == "-":
+                isSameWord = True
+            else:
                 isSameWord = False
+                
+            if isEnd(s_iter) == True:
+                can_Entered = True 
+            else :
                 pass
-        if s_iter[-1] == "-":
-            isSameWord = True
-        else:
-            isSameWord = False
-            
-        if isEnd(s_iter) == True:
-            can_Entered = True 
-        else :
+            isFirst = False 
+        else : # s_iter == ''
+            result.append("\n")
             pass
-        isFirst = False 
 
         
     resultSentence = ' '.join(result)
-    resultSentence = resultSentence.replace('StyleGAN2','"StyleGAN2"')
-    resultSentence = resultSentence.replace('StyleGAN','"StyleGAN"')
-    resultSentence = resultSentence.replace(''' ""StyleGAN"2" ''','"StyleGAN2"')
+    resultSentence = replaceword(resultSentence)
 
     return resultSentence
 
 def TESTNEWLINEPRINT():
-    print("THIS IS TEST FUNCTION")
+    print(execute(testSentence))
+
+if __name__ == "__main__":
+    TESTNEWLINEPRINT()

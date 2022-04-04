@@ -25,6 +25,10 @@ def on_closing():
 
 def on_closeing_window(window):
     window.destroy()
+
+def on_closeing_window_translate(e):
+    global currentTranslateWindow
+    currentTranslateWindow.destroy()
     currentTranslateWindow = None
 def on_closing_translateWindow():
     global currentTranslateWindow
@@ -49,7 +53,9 @@ def printCharinString(s):
 def translate (UI_LIST):
     global currentTranslateWindow
     if currentTranslateWindow != None :
-         on_closeing_window(currentTranslateWindow)
+        e = None
+        on_closeing_window_translate(e)
+        #on_closeing_window(currentTranslateWindow)
          
     targetText = getUIWithName(UI_LIST,"targetText")
     
@@ -73,6 +79,10 @@ def translate (UI_LIST):
     targetText.delete(1.0,"end")
     targetText.insert(1.0,translateResult)
     targetText.config(state='disabled')
+    #targetText.bind("<Escape>",lambda x : on_closeing_window(currentTranslateWindow))
+    targetText.bind("<Escape>",on_closeing_window_translate)
+
+    currentTranslateWindow.config(menu=tempMenubar)
     currentTranslateWindow.protocol("WM_DELETE_WINDOW", on_closing_translateWindow)
     currentTranslateWindow.mainloop()
 
