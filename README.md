@@ -11,6 +11,7 @@ There is also correct list for proper Noun in Paper. But I didn't make that func
 
 --------------
 remained task
- 
+
  1. correcting list in GUI
  2. finding chrome selenium file in GUI
+  2.1. or add the auto update selenium Library
