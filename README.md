@@ -13,5 +13,5 @@ There is also correct list for proper Noun in Paper. But I didn't make that func
 
 ## remained task
  1. correcting list in GUI
- 2. Else
+ 2. option file for any setting 
  3. TEST
