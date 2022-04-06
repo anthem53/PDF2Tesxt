@@ -1,7 +1,10 @@
 # PDF2Text
 
 ## Introduction 
-This is for my task that read the PDF file.
+
+you MUST download chrome brower before using this program.
+
+This program is to help PDF reading task.
 
 I want to use translate the English sentence, but I cannot do it because pdf file sentence has unnecessary newLine.
 
