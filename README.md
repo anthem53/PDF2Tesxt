@@ -11,7 +11,7 @@ click the remove newline button, then you can see well processed sentence.
 There is also correct list for proper Noun in Paper. But I didn't make that function in GUI.
 
 
---------------
 ## remained task
-
  1. correcting list in GUI
+ 2. Else
+ 3. TEST
