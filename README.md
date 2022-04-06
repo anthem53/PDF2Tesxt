@@ -1,5 +1,6 @@
 # PDF2Text
 
+## Introduction 
 This is for my task that read the PDF file.
 
 I want to use translate the English sentence, but I cannot do it because pdf file sentence has unnecessary newLine.
@@ -11,6 +12,6 @@ There is also correct list for proper Noun in Paper. But I didn't make that func
 
 
 --------------
-remained task
+## remained task
 
  1. correcting list in GUI
