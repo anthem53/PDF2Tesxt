@@ -1,10 +1,7 @@
-a = 'StyleGAN2'
-b = '''"StyleGAN2"'''
+test = "⁜"
 
-b = a.replace('StyleGAN2','"StyleGAN2"' )
+for c in test:
+    print(ord(c))
+    print(c)
 
-print(b )
 
-a = "kill you baby"
-b = a.replace('kill','save')
-print(b)

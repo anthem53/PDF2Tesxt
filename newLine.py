@@ -1,4 +1,4 @@
-startSymbolList = ['•','–','']
+startSymbolList = ['•','–','','-']
 endSymbolList = ['.','!','?']
 properNounList = ["StyleGAN2"]
 replaceDict = {}
@@ -8,6 +8,7 @@ Though these techniques can potentially represent complicated and highresolutio
 geometric complexity, resulting in oversmoothed renderings. We show that an alternate strategy of optimizing networks to encode 5D radiance fields (3D volumes with 2D view-dependent appearance) can represent higher-resolution geometry\n
 and appearance to render photorealistic novel views of complex scenes.
 '''
+
 def initReplaceDict():
     replaceDict['StyleGAN2'] = '"StyleGAN2"'
     replaceDict['StyleGAN'] = '"StyleGAN"'
@@ -41,7 +42,7 @@ def isProperNoun(s):
         return False
 
 def execute(s):
-    initReplaceDict()
+    #initReplaceDict()
     list = s.split("\n")
     can_Entered = False
     isFirst = True

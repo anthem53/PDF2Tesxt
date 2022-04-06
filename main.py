@@ -7,6 +7,7 @@ from typing import Text
 import newLine
 from translate import init_translate, writeSource,readTarget,quit_translate_window
 
+
 startSymbolList = ['•','–','']
 endSymbolList = ['.','!','?']
 
@@ -16,6 +17,7 @@ endSymbolList = ['.','!','?']
 UI_DEBUG = False
 font_size = 23
 currentTranslateWindow = None
+currentCLWindow = None
 
 
 def on_closing():
@@ -36,6 +38,11 @@ def on_closing_translateWindow():
     if(currentTranslateWindow != None):
         currentTranslateWindow.destroy()
         currentTranslateWindow = None
+def on_closing_correctListWindow():
+    global currentCLWindow
+    if(currentCLWindow != None):
+        currentCLWindow.destroy()
+        currentCLWindow = None
 
 def getUIWithName(UI_LIST,UI_name):
     for (elem,name) in UI_LIST:
@@ -50,6 +57,21 @@ def printCharinString(s):
     for c in s:
         print("c",c,ord(c))
     print("end printCharinString function")
+
+def editCorrectList(UI_LIST):
+    global currentCLWindow
+    if currentCLWindow != None :
+        e = None
+        #on_closeing_window_translate(e)
+     
+    currentCLWindow = tkinter.Tk()
+    currentCLWindow.title("Edit correct list")
+    currentCLWindow.geometry("1300x550")
+
+    tree = tkinter.Treeview(currentCLWindow, selectmode='browse')
+
+
+    currentCLWindow.mainloop()
 
 def translate (UI_LIST):
     global currentTranslateWindow
@@ -118,6 +140,7 @@ def addMenu(root,UI_LIST):
 
     menubar.add_cascade(label="remove newLine", command = lambda: removeNewline(UI_LIST))
     menubar.add_cascade(label="translate", command = lambda: translate(UI_LIST))
+    menubar.add_cascade(label="edit correct list", command = lambda: editCorrectList(UI_LIST))
 
     fontmenu = tkinter.Menu(menubar,tearoff=0)
     menubar.add_cascade(label="font size", menu=fontmenu)
@@ -199,6 +222,7 @@ if __name__ == "__main__":
 
     UI_LIST = init_UI(root)
     #init_UI_Action(root,UI_LIST)
+    newLine.initReplaceDict()
     root.protocol("WM_DELETE_WINDOW", on_closing)
     
     if UI_DEBUG == False:
